@@ -1,12 +1,23 @@
+* {
+  font-family: 'Pacifico', cursive;
+}
 .container {
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  margin: 5px;
+  border: 5px solid rgba(0, 0, 0, 0.7);
+  overflow: hidden;
 }
 .sidebar {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #444444;
   float: left;
   width: 20%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  background: #999999;
 }
 .sidebar .page_element {
   background: rgba(11, 13, 16, 0.6);
@@ -16,10 +27,19 @@
   width: 55px;
   height: 75px;
 }
+.sidebar .text_element:hover {
+  cursor: pointer;
+}
 .sidebar .image_element {
   background-image: url('assets/image.png');
   width: 55px;
   height: 75px;
+}
+.sidebar .image_element:hover {
+  cursor: pointer;
+}
+.draggable_elements {
+  list-style-type: none;
 }
 .editor {
   -webkit-transition: all 0.5s linear;
@@ -28,13 +48,18 @@
   -ms-transition: all 0.5s linear;
   transition: all 0.5s linear;
   float: right;
-  background: rgba(11, 13, 16, 0.6);
+  background: rgba(20, 20, 20, 0.4);
   width: 80%;
   height: 100%;
 }
 .current_page {
   width: 100%;
   height: 100%;
+  overflow: scroll;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #444444;
 }
 .dragging_over {
   -webkit-transition: all 0.5s linear;
@@ -44,14 +69,112 @@
   transition: all 0.5s linear;
   background: rgba(20, 20, 20, 0.4);
 }
+.templates {
+  width: 100%;
+}
+.pages {
+  width: 100%;
+  list-style-type: none;
+  margin-top: 10px;
+}
+.section_title {
+  width: 100%;
+  list-style-type: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #444444;
+  color: #ffffff;
+  border-radius: 30px;
+}
+.page_selector {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #444444;
+}
+.page {
+  padding: 5px 20px;
+  margin: 5px 10px 30px 5px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #FFF;
+  background: #2db6cf;
+  text-decoration: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.page:active {
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  border-bottom: 1px solid;
+}
 .page:hover {
   cursor: pointer;
+  background: #ddfd12;
+}
+.page_delete {
+  padding: 5px 20px;
+  margin: 15px 10px 30px 5px;
+  border-radius: 10px;
+  font-size: 10px;
+  color: #FFF;
+  background: #2db6cf;
+  text-decoration: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.page_delete:hover {
+  cursor: pointer;
+  background: #e0645c;
+}
+.page_add {
+  padding: 5px 20px;
+  margin: 30px 10px 10px 5px;
+  border-radius: 10px;
+  font-family: 'Pacifico', cursive;
+  font-size: 15px;
+  color: #FFF;
+  background: #2db6cf;
+  text-decoration: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.page_add:hover {
+  cursor: pointer;
+  background: #46b98a;
 }
 .layout_text_element {
   width: 100%;
+  background: rgba(20, 20, 20, 0.4);
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.layout_text_element:focus {
+  background: #999999;
 }
 .layout_image_element {
-  background: url(http://wiki.tripwireinteractive.com/images/4/47/Placeholder.png) no-repeat;
-  width: 100%;
-  height: 200px;
+  background: url(http://standupscience1.weebly.com/uploads/2/1/5/7/21574158/6602731_orig.png);
+  width: 100px;
+  height: 100px;
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  border: 1px solid #ffffff;
 }

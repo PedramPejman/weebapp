@@ -1,6 +1,17 @@
 @gray: rgba(11,13,16,.6);
 @gray: rgba(11,13,16,.6);
 @light_gray: rgba(20,20,20,.4);
+@red:   #E0645C;
+@dark:  #444444;
+@light: #999999;
+@blue:  #2DB6CF;
+@green: #46b98a;
+@yellow: #DDFD12;
+@white: #FFFFFF;
+
+*{
+	font-family: 'Pacifico', cursive;
+}
 
 .transition (@prop: all, @time: 1s, @ease: linear) {
     -webkit-transition: @prop @time @ease;
@@ -10,18 +21,30 @@
     transition: @prop @time @ease;
 }
 
+.innerborder () {
+	-moz-box-sizing:    border-box;
+   -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
 
 .container {
 	width: 100%;
 	height: 100%;
-	border: 2px solid rgba(0,0,0,.5);
-	margin: 5px;
+	border: 5px solid rgba(0,0,0,.7);
+	overflow: hidden;
 
 }
 .sidebar{
+	-moz-box-sizing:    border-box;
+   -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+	border: 2px solid @dark;
 	float: left;
 	width: 20%;
-
+	height: 100%;
+	float:left;
+	overflow: hidden;
+	background: @light;
 	.page_element{
 		background: @gray;
 	}
@@ -30,19 +53,31 @@
 		background-image: url('assets/text.png') ;
 		width: 55px;
 		height: 75px; 
+		
 	}
+
+	.text_element:hover {
+			cursor: pointer;
+		}
 
 	.image_element{
 		background-image: url('assets/image.png') ;
 		width: 55px;
 		height: 75px; 
 	}
+
+	.image_element:hover {
+			cursor: pointer;
+		}
 }
 
+.draggable_elements {
+	list-style-type: none;
+}
 .editor {
 	.transition (all, 0.5s);
 	float: right;
-	background: @gray;
+	background: @light_gray;
 	width: 80%;
 	height: 100%;
 }
@@ -50,26 +85,117 @@
 .current_page {
 	width: 100%;
 	height: 100%;
+	overflow: scroll;
+	.innerborder();
+	border: 2px solid @dark;
 }
 .dragging_over {
 		.transition (all, 0.5s);
 		background: @light_gray;
 	}
 
-.page {
 
+.templates {
+	width: 100%;
+	
+}
+.pages {
+	width: 100%;
+	list-style-type: none;
+	margin-top: 10px;
+}
+
+.section_title {
+	width: 100%;
+	list-style-type: none;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding:10px;
+	background: @dark;
+	color: @white;
+	border-radius: 30px;
+}
+
+.page_line{
+
+}
+
+.page_selector {
+	.innerborder();
+	border: 2px solid @dark;
+}
+.page {
+	padding: 5px 20px;
+    margin: 5px 10px 30px 5px;
+	border-radius: 10px;
+	font-size: 15px;
+	color: #FFF;
+	background: @blue;
+	text-decoration: none;	
+	.transition (all, 0.3s);
+}
+
+.page:active
+{
+	.transition (all, .3s);
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
 }
 
 .page:hover {
 	cursor: pointer;
+	background: @yellow;
+}
+
+.page_delete {
+	padding: 5px 20px;
+    margin: 15px 10px 30px 5px;
+	border-radius: 10px;
+	font-size: 10px;
+	color: #FFF;
+	background: @blue;
+	text-decoration: none;
+   .transition (all, 0.3s);
+}
+
+.page_delete:hover {
+	cursor: pointer;
+	background: @red;
+}
+
+.page_add {
+   	padding: 5px 20px;
+    margin: 30px 10px 10px 5px;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 15px;
+	color: #FFF;
+	background: @blue;
+	text-decoration: none;
+   .transition (all, 0.3s);
+}
+
+.page_add:hover {
+	cursor: pointer;
+	background: @green;
 }
 
 .layout_text_element {
 	width: 100%;
+	background: @light_gray;
+	.transition (all, 0.3s);
 }
 
+.layout_text_element:focus {
+	background: @light;
+	}
+
 .layout_image_element {
-	background: url(http://wiki.tripwireinteractive.com/images/4/47/Placeholder.png) no-repeat;
-	width: 100%;
-	height : 200px;
+	background: url(http://standupscience1.weebly.com/uploads/2/1/5/7/21574158/6602731_orig.png) ;
+	width: 100px;
+	height: 100px;
+	 background-size: 100px 100px;
+    background-repeat: no-repeat;
+    border: 1px solid @white;
 }

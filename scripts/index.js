@@ -1,9 +1,11 @@
 var current_page = 11;
 
+
 window.onload = function()
 {
   setUpDraggableElements();
   setUpPageInteractions();
+  setUpPageAdding();
   setUpEditorLayout();
 }
 
@@ -11,6 +13,7 @@ window.onload = function()
 
 
 function setUpPageInteractions() {
+  //Setting up the page-choosing mechanism
   var page_elements = document.querySelectorAll('.page');
   for (var i = 0; i < page_elements.length; i++) {
     page_elements[i].addEventListener('click', function(e) {
@@ -18,8 +21,79 @@ function setUpPageInteractions() {
       setUpEditorLayout();
     });
   }
+
+  //Setting up the page-deletion mechanism
+  var page_delete_buttons = document.querySelectorAll('.page_delete');
+  for (var i = 0; i < page_delete_buttons.length; i++) {
+    page_delete_buttons[i].addEventListener('click', function(e) {
+      deletePage(this.getAttribute('id'));
+    });
+  }
 }
 
+function setUpPageAdding() {
+    //Setting up the page-adding mechanism
+    var page_add_button = document.querySelector('.page_add');
+    page_add_button.addEventListener('click', function(e) {
+      addPage();
+    });
+
+}
+
+
+function addPage() {
+  
+  sql_command = "SELECT * FROM pages";
+  $.ajax({ url: './executeTask.php',
+         data: {command :  sql_command},
+         type: 'get',
+         dataType: 'json',
+         success: function(pages) {
+            var new_page_num = Math.max(pages[pages.length-1]['id'].valueOf(), pages.length) +1;
+            $.ajax({ url: './executeTask.php',
+              data: {command: 'INSERT INTO pages VALUES (' + new_page_num + ')'},
+              type: 'get',
+              success: function(elements) {
+                setUpSideBar();
+              },
+              error: function(data) {
+                alert('error');
+              }
+            });
+
+          }
+}); 
+
+  
+}
+
+function deletePage(id) {
+  //Delete the page object from pages table
+  $.ajax({ url: './executeTask.php',
+      data: {command: 'DELETE FROM pages WHERE id = ' + id},
+      type: 'get',
+      success: function(elements) {
+        setUpSideBar();
+      },
+      error: function(data) {
+        alert('error');
+      }
+
+  });
+
+  //Delete the elements pretaining to that page
+  $.ajax({ url: './executeTask.php',
+      data: {command: 'DELETE FROM elements WHERE page = ' + id},
+      type: 'get',
+      success: function(elements) {
+        setUpSideBar();
+      },
+      error: function(data) {
+        alert('error');
+      }
+
+  });
+}
 
 function setUpEditorLayout() {
   var page_selector = document.querySelector('.page_selector');
@@ -42,8 +116,30 @@ function setUpEditorLayout() {
               }
             }
             current_page_layout.innerHTML = layout_inner_html;
+            setUpElementFocusListeners();
           }
 });
+}
+
+function setUpSideBar() {
+  var sidebar_pages_layout = document.querySelector('.pages');
+  //update the sidebar_pages section layout
+    $.ajax({ url: './executeTask.php',
+         data: {command : 'SELECT * FROM pages'},
+         type: 'get',
+         dataType: 'json',
+         success: function(elements) {
+            sidebar_inner_html = "<div class = 'section_title'>Pages</div>";
+            for (var i = 0; i < elements.length; i++) {
+                sidebar_inner_html += "<li class='page_line'>";
+                sidebar_inner_html += "<a class='page' id = '" + elements[i]['id'] + "'> Page " + elements[i]['id'] + "</a>"
+                sidebar_inner_html += "<a class='page_delete' id = '" + elements[i]['id'] + "'> Delete </a> </li><br>" ;
+            }
+            sidebar_pages_layout.innerHTML = sidebar_inner_html;
+            setUpPageInteractions();
+          }
+});
+
 }
 
 
@@ -112,9 +208,16 @@ function addElement(type) {
          dataType: 'json',
          success: function() {
             setUpEditorLayout();
-          },
-         error: function(e) {
-         }
-
+          }
 }); 
 }
+
+function setUpElementFocusListeners() {
+  var elements = document.querySelectorAll('.layout_text_element');
+  for (var i = 0; i < elements.length; i++) {
+    //elements[i].focus(function() {
+     // alert('in focus');
+   // })
+  }
+}
+
